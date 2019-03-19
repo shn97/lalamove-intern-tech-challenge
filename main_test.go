@@ -54,24 +54,45 @@ func TestLatestVersions(t *testing.T) {
 			minVersion:     semver.New("2.2.1"),
 		},
 		{
-			versionSlice:   []string{"1.10.1", "1.9.5", "1.8.10", "1.10.0", "1.7.14", "1.8.9", "1.9.5"},
-			expectedResult: []string{"1.10.1", "1.9.5", "1.8.10", "1.7.14"},
-			minVersion:     semver.New("1.7.5"),
-		},
-		{
-			versionSlice:   []string{"1.10.1", "1.9.5", "1.8.10", "1.10.0", "1.7.14", "1.8.9", "1.9.5"},
+			versionSlice:   []string{"2.2.1", "2.2.0", "2.2.3"},
 			expectedResult: []string{},
-			minVersion:     semver.New("1.10.2"),
-		},
-		{
-			versionSlice:   []string{"1.10.1", "1.8.10", "1.10.0", "1.9.5","1.7.14", "1.8.9", "1.9.5"},
-			expectedResult: []string{"1.10.1", "1.9.5"},
-			minVersion:     semver.New("1.9.5"),
+			minVersion:     semver.New("2.2.4"),
 		},
 		{
 			versionSlice:   []string{"1.10.1", "3.10.1" ,"2.10.1"},
 			expectedResult: []string{"3.10.1", "2.10.1"},
 			minVersion:     semver.New("2.10.1"),
+		},
+		{
+			versionSlice:   []string{"1.10.1", "1.9.5", "1.8.10", "1.10.0", "1.7.5-alpha.1", "1.8.9", "1.8.10-beta", "1.9.5"},
+			expectedResult: []string{"1.10.1", "1.9.5", "1.8.10", "1.7.5-alpha.1"},
+			minVersion:     semver.New("1.7.5"),
+		},
+		{
+			versionSlice:   []string{"1.10.1", "1.9.5", "1.8.10", "1.10.0", "1.7.14", "1.8.9", "1.9.5", "1.10.2-alpha"},
+			expectedResult: []string{"1.10.2-alpha"},
+			minVersion:     semver.New("1.10.2-alpha"),
+		},
+		
+		{
+			versionSlice:   []string{"1.10.1-alpha", "1.10.1-beta" ,"1.10.1", "1.10.1-alpha.2"},
+			expectedResult: []string{"1.10.1"},
+			minVersion:     semver.New("1.10.1"),
+		},
+		{
+			versionSlice:   []string{"1.10.1-alpha", "1.10.1-beta" ,"1.10.1", "1.10.1-alpha.2"},
+			expectedResult: []string{"1.10.1"},
+			minVersion:     semver.New("1.10.0"),
+		},
+		{
+			versionSlice:   []string{"1.10.1-alpha", "1.10.1-beta", "1.10.1-alpha.2"},
+			expectedResult: []string{"1.10.1-beta"},
+			minVersion:     semver.New("1.10.0"),
+		},
+		{
+			versionSlice:   []string{"1.10.1-alpha", "1.10.1-alpha.1", "1.10.1-alpha.2"},
+			expectedResult: []string{"1.10.1-alpha.2"},
+			minVersion:     semver.New("1.10.0"),
 		},
 	}
 
